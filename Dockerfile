@@ -1,4 +1,4 @@
-FROM golang:1.24.6-trixie
+FROM golang:1.26-trixie
 
 RUN set -eux; \
 	apt-get install --update -y --no-install-recommends \
@@ -35,7 +35,7 @@ RUN set -eux; \
 # Go *requires* semver, which is silly, but outside our control, so this takes our version numbers like "1.2" and "cross-grades" them to be like "v1.2.0", per (Go's implementation of) semver (and the VCS implementation is even stricter and requires the full triplet)
 		echo 'FAKEGIT_GO_SEMVER="v${FAKEGIT_GO_REVISION}.0"'; \
 		echo 'export FAKEGIT_GO_REVISION FAKEGIT_GO_SEMVER'; \
-		echo 'eval "go build $BUILD_FLAGS -o /go/bin/gosu-$ARCH" github.com/tianon/gosu'; \
+		echo 'eval "go build $BUILD_FLAGS -o /go/bin/gosu-$ARCH" github.com/jeremymayhem/gosu'; \
 		echo 'if go version -m "/go/bin/gosu-$ARCH" |& tee "/proc/$$/fd/1" | grep "(devel)" >&2; then exit 1; fi'; \
 		echo 'file "/go/bin/gosu-$ARCH"'; \
 		echo 'if arch-test "$ARCH"; then'; \
@@ -48,7 +48,7 @@ RUN set -eux; \
 	} > /usr/local/bin/gosu-build-and-test.sh; \
 	chmod +x /usr/local/bin/gosu-build-and-test.sh
 
-WORKDIR /go/src/github.com/tianon/gosu
+WORKDIR /go/src/github.com/jeremymayhem/gosu
 
 # satisfy Go's need for ".git" to invoke "git" (or in our case, "fake-git.sh")
 RUN mkdir .git # ("touch .git" should be enough here, but Go insists it be a directory even though Git worktrees are a thing and have ".git" as a file)
