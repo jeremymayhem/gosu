@@ -1,4 +1,4 @@
-module github.com/tianon/gosu
+module github.com/jeremymayhem/gosu
 
 go 1.25
 
