@@ -1,6 +1,6 @@
 module github.com/jeremymayhem/gosu
 
-go 1.25
+go 1.25.6
 
 require (
 	github.com/moby/sys/user v0.1.0
